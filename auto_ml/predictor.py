@@ -59,6 +59,11 @@ except:
     copyreg.pickle(types.MethodType, _pickle_method)
 
 
+class ExtendedEvolutionaryAlgorithmSearchCV(EvolutionaryAlgorithmSearchCV):
+    def _run_search(cls):
+        """required method on base class but not implemented; it causes a TypeError"""
+        pass
+
 class Predictor(object):
 
 
@@ -1131,7 +1136,7 @@ class Predictor(object):
             fit_evolutionary_search = True
         # For some reason, EASCV doesn't play nicely with CatBoost. It blows up the memory hugely, and takes forever to train
         if fit_evolutionary_search == True:
-            gs = EvolutionaryAlgorithmSearchCV(
+            gs = ExtendedEvolutionaryAlgorithmSearchCV(
                 # Fit on the pipeline.
                 ppl,
                 # Two splits of cross-validation, by default
